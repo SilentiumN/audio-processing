@@ -202,7 +202,7 @@ function AudioRecorder() {
         }
 
 
-        //playChunk(outputData)
+        //playChunk(outputData, sampleRate)
 
         return outputData
 
@@ -228,17 +228,15 @@ function AudioRecorder() {
 
 
         const offlineCtxBuffer = offlineCtx.startRendering().then((resampled) => {
-            //playChunk(resampled.getChannelData(0))
+            //playChunk(resampled.getChannelData(0), sampleRate)
             return resampled.getChannelData(0)
         });
 
         return offlineCtxBuffer
     }
 
-    function playChunk(bufferSource) {
-
-        console.log(sampleRate, "playChunk")
-        const audioBuffer = storage.ctx.createBuffer(1, bufferSource.length, sampleRate);
+    function playChunk(bufferSource, rate) {
+        const audioBuffer = storage.ctx.createBuffer(1, bufferSource.length, rate);
 
         audioBuffer.copyToChannel(bufferSource, 0)
 
@@ -283,7 +281,7 @@ function AudioRecorder() {
             offsetBuffer = nextOffsetBuffer;
         }
 
-        //playChunk(result)
+        //playChunk(result, rate)
 
         return result;
     }
@@ -318,7 +316,7 @@ function AudioRecorder() {
         checkUnwritableChunk();
         await convertChunksFromFloat32ToInt16()
 
-        //playChunk(chunks[0].processedAudio)
+        playChunk(chunks[0].processedAudio, 16000)
         //console.log(chunks)
         clearChunks();
 
