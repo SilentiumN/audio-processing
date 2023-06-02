@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+</head>
+<body>
+
+<div id="container">
+
+    <button id="btn-start-recording">Start Recording</button>
+    <button id="btn-stop-recording">Stop Recording</button>
+
+    <hr>
+
+    <label for="pitch">Choose a pitch:</label>
+    <select id="pitch" name="pitch">
+        <option value="0.5">0.5</option>
+        <option value="0.6">0.6</option>
+        <option value="0.7">0.7</option>
+        <option value="0.8">0.8</option>
+        <option value="0.9">0.9</option>
+        <option value="1.0">1.0</option>
+        <option value="1.1">1.1</option>
+        <option value="1.2">1.2</option>
+        <option value="1.3">1.3</option>
+        <option value="1.4">1.4</option>
+        <option value="1.5">1.5</option>
+        <option value="1.6">1.6</option>
+        <option value="1.7">1.7</option>
+        <option value="1.8">1.8</option>
+        <option value="1.9">1.9</option>
+        <option value="2.0">2.0</option>
+    </select>
+
+    <label for="speed">Choose a speed:</label>
+    <select id="speed" name="speed">
+        <option value="1.0">1.0</option>
+        <option value="1.1">1.1</option>
+        <option value="1.2">1.2</option>
+        <option value="1.3">1.3</option>
+        <option value="1.4">1.4</option>
+        <option value="1.5">1.5</option>
+        <option value="1.6">1.6</option>
+        <option value="1.7">1.7</option>
+        <option value="1.8">1.8</option>
+        <option value="1.9">1.9</option>
+        <option value="2.0">2.0</option>
+    </select>
+</div>
+
+<script src="/services/audio-recorder.js"></script>
+<script>
+    const recorder = new AudioRecorder();
+
+    const startButton = document.getElementById('btn-start-recording');
+    const stopButton = document.getElementById('btn-stop-recording');
+    const pitchSelect = document.getElementById('pitch');
+    const speedSelect = document.getElementById('speed');
+
+    pitchSelect.value = recorder.getPitch();
+
+    speedSelect.value = recorder.getSpeed();
+
+    startButton.onclick = recorder.start;
+    stopButton.onclick = recorder.stop;
+
+    pitchSelect.onchange = () => {
+        recorder.updatePitch(pitchSelect.value)
+    }
+    speedSelect.onchange = () => {
+        recorder.updateSpeed(speedSelect.value)
+    }
+</script>
+</body>
+</html>
